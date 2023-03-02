@@ -95,6 +95,13 @@ class StoreService extends TransactionBaseService {
     return store
   }
 
+  async retrieveByDomain(domain: string): Promise<string|null> {
+    const manager = this.manager_
+    const storeRepo = manager.getCustomRepository(this.storeRepository_)
+    const ids = await storeRepo.query(`SELECT id FROM store WHERE  metadata->'domains' @? '$ ? (@=="${domain}")';`)
+    return ids.length ? ids[0]?.id : null
+  }
+
   protected getDefaultCurrency_(code: string): Partial<Currency> {
     const currencyObject = currencies[code.toUpperCase()]
 
