@@ -12,7 +12,6 @@ import {
   ProductService,
   ProductVariantInventoryService,
   RegionService,
-  StoreService
 } from "../../../../services";
 import SalesChannelFeatureFlag from "../../../../loaders/feature-flags/sales-channels"
 import PricingService from "../../../../services/pricing"
@@ -189,10 +188,6 @@ export default async (req, res) => {
   const pricingService: PricingService = req.scope.resolve("pricingService")
   const cartService: CartService = req.scope.resolve("cartService")
   const regionService: RegionService = req.scope.resolve("regionService")
-  const storeService: StoreService = req.scope.resolve("storeService")
-
-  const storeDomain = req.headers.origin.split('.')[0].split('//')[1]
-  const storeId = await storeService.retrieveByDomain(storeDomain)
 
   const validated = req.validatedQuery as StoreGetProductsParams
   let {
@@ -205,10 +200,6 @@ export default async (req, res) => {
 
   // get only published products for store endpoint
   filterableFields["status"] = ["published"]
-
-  if(storeId) {
-    filterableFields["store_id"] = storeId
-  }
 
   const featureFlagRouter: FlagRouter = req.scope.resolve("featureFlagRouter")
   if (featureFlagRouter.isFeatureEnabled(PublishableAPIKeysFeatureFlag.key)) {
@@ -266,6 +257,10 @@ export class StoreGetProductsPaginationParams extends PriceSelectionParams {
   @IsString()
   @IsOptional()
   expand?: string
+
+  @IsString()
+  @IsOptional()
+  store_id?: string
 
   @IsNumber()
   @IsOptional()
