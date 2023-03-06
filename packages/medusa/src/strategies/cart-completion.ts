@@ -39,7 +39,7 @@ class CartCompletionStrategy extends AbstractCartCompletionStrategy {
   protected readonly cartService_: CartService
   protected readonly orderService_: OrderService
   protected readonly swapService_: SwapService
-  private _storeId: string;
+  // private _storeId: string;
 
   constructor({
     productVariantInventoryService,
@@ -65,9 +65,9 @@ class CartCompletionStrategy extends AbstractCartCompletionStrategy {
     id: string,
     ikey: IdempotencyKey,
     context: RequestContext,
-    storeId: string = ''
+    // storeId: string = ''
   ): Promise<CartCompletionResponse> {
-    this._storeId = storeId;
+    // this._storeId = storeId;
     let idempotencyKey: IdempotencyKey = ikey
 
     let inProgress = true
@@ -374,7 +374,7 @@ class CartCompletionStrategy extends AbstractCartCompletionStrategy {
     }
 
     let order: Order
-    cart['store_id'] = this._storeId
+    // cart['store_id'] = this._storeId
     try {
       order = await orderServiceTx.createFromCart(cart)
     } catch (error) {

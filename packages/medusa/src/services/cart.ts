@@ -351,7 +351,8 @@ class CartService extends TransactionBaseService {
 
         if (!rawCart.email && data.email) {
           const customer = await this.createOrFetchGuestCustomerFromEmail_(
-            data.email
+            data.email,
+            data.store_id
           )
           rawCart.customer = customer
           rawCart.customer_id = customer.id
@@ -1071,7 +1072,8 @@ class CartService extends TransactionBaseService {
           await this.updateCustomerId_(cart, data.customer_id)
         } else if (isDefined(data.email)) {
           const customer = await this.createOrFetchGuestCustomerFromEmail_(
-            data.email
+            data.email,
+            data.store_id
           )
           cart.customer = customer
           cart.customer_id = customer.id
@@ -1261,10 +1263,12 @@ class CartService extends TransactionBaseService {
   /**
    * Creates or fetches a user based on an email.
    * @param email - the email to use
+   * @param store_id
    * @return the resultign customer object
    */
   protected async createOrFetchGuestCustomerFromEmail_(
-    email: string
+    email: string,
+    store_id: string | null = null
   ): Promise<Customer> {
     const validatedEmail = validateEmail(email)
 
@@ -1276,7 +1280,8 @@ class CartService extends TransactionBaseService {
     if (!customer) {
       customer = await this.customerService_
         .withTransaction(this.transactionManager_)
-        .create({ email: validatedEmail })
+        // @ts-ignore
+        .create({ email: validatedEmail, store_id })
     }
 
     return customer

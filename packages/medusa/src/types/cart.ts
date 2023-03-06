@@ -46,6 +46,7 @@ class Discount {
 
 export type CartCreateProps = {
   region_id?: string
+  store_id?: string
   region?: Region
   email?: string
   billing_address_id?: string
@@ -63,6 +64,7 @@ export type CartCreateProps = {
 }
 
 export type CartUpdateProps = {
+  store_id?: string;
   region_id?: string
   country_code?: string
   email?: string

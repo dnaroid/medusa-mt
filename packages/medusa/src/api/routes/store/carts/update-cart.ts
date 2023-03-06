@@ -14,6 +14,7 @@ import { CartService } from "../../../../services"
 import { AddressPayload } from "../../../../types/common"
 import { FeatureFlagDecorators } from "../../../../utils/feature-flag-decorators"
 import { IsType } from "../../../../utils/validators/is-type"
+import { getStoreIdByDomain } from "../../../../helpers/request.helper";
 
 /**
  * @oas [post] /carts/{id}
@@ -71,6 +72,7 @@ import { IsType } from "../../../../utils/validators/is-type"
  */
 export default async (req, res) => {
   const { id } = req.params
+  const storeId = getStoreIdByDomain(req)
   const validated = req.validatedBody as StorePostCartsCartReq
 
   const cartService: CartService = req.scope.resolve("cartService")
@@ -78,6 +80,10 @@ export default async (req, res) => {
 
   if (req.user?.customer_id) {
     validated.customer_id = req.user.customer_id
+  }
+
+  if (storeId) {
+    validated.store_id = storeId
   }
 
   await manager.transaction(async (transactionManager) => {
@@ -187,6 +193,10 @@ export class StorePostCartsCartReq {
   @IsOptional()
   @IsString()
   country_code?: string
+
+  @IsOptional()
+  @IsString()
+  store_id?: string
 
   @IsEmail()
   @IsOptional()

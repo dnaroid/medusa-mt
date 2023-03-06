@@ -35,7 +35,7 @@ export abstract class AbstractCartCompletionStrategy
     cartId: string,
     idempotencyKey: IdempotencyKey,
     context: RequestContext,
-    storeId: string
+    // storeId: string
   ): Promise<CartCompletionResponse>
 }
 

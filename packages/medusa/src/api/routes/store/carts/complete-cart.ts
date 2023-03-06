@@ -85,13 +85,13 @@ export default async (req, res) => {
     "cartCompletionStrategy"
   )
 
-  const storeId = getStoreIdByDomain(req)
+  // const storeId = getStoreIdByDomain(req)
 
   const { response_code, response_body } = await completionStrat.complete(
     id,
     idempotencyKey,
     req.request_context,
-    storeId
+    // storeId
   )
 
   res.status(response_code).json(response_body)

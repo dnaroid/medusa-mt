@@ -23,6 +23,7 @@ import { FlagRouter } from "../../../../utils/flag-router"
 import SalesChannelFeatureFlag from "../../../../loaders/feature-flags/sales-channels"
 import { CartCreateProps } from "../../../../types/cart"
 import PublishableAPIKeysFeatureFlag from "../../../../loaders/feature-flags/publishable-api-keys"
+import { getStoreIdByDomain } from "../../../../helpers/request.helper";
 
 /**
  * @oas [post] /carts
@@ -75,6 +76,11 @@ import PublishableAPIKeysFeatureFlag from "../../../../loaders/feature-flags/pub
  */
 export default async (req, res) => {
   const validated = req.validatedBody as StorePostCartReq
+  const storeId = getStoreIdByDomain(req)
+
+  if (storeId) {
+    validated.store_id = storeId
+  }
 
   const reqContext = {
     ip: reqIp.getClientIp(req),
@@ -231,6 +237,10 @@ export class StorePostCartReq {
   @IsOptional()
   @IsString()
   region_id?: string
+
+  @IsOptional()
+  @IsString()
+  store_id?: string
 
   @IsOptional()
   @IsString()

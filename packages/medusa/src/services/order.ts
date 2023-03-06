@@ -617,7 +617,7 @@ class OrderService extends TransactionBaseService {
         currency_code: region.currency_code,
         metadata: cart.metadata || {},
         // @ts-ignore
-        store_id: cart.store_id,
+        // store_id: cart.store_id,
       } as Partial<Order>
 
       if (
