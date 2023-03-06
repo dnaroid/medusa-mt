@@ -2,6 +2,7 @@ import { EntityManager } from "typeorm"
 import { AbstractCartCompletionStrategy } from "../../../../interfaces"
 import { IdempotencyKey } from "../../../../models"
 import { IdempotencyKeyService } from "../../../../services"
+import { getStoreIdByDomain } from "../../../../helpers/request.helper";
 
 /**
  * @oas [post] /carts/{id}/complete
@@ -84,10 +85,13 @@ export default async (req, res) => {
     "cartCompletionStrategy"
   )
 
+  const storeId = getStoreIdByDomain(req)
+
   const { response_code, response_body } = await completionStrat.complete(
     id,
     idempotencyKey,
-    req.request_context
+    req.request_context,
+    storeId
   )
 
   res.status(response_code).json(response_body)

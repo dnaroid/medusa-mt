@@ -1,6 +1,7 @@
 import { IdempotencyKey } from "../models"
 import { RequestContext } from "../types/request"
 import { TransactionBaseService } from "./transaction-base-service"
+import { Request } from "express";
 
 export type CartCompletionResponse = {
   /** The response code for the completion request */
@@ -29,10 +30,12 @@ export interface ICartCompletionStrategy {
 export abstract class AbstractCartCompletionStrategy
   implements ICartCompletionStrategy
 {
+  // @ts-ignore
   abstract complete(
     cartId: string,
     idempotencyKey: IdempotencyKey,
-    context: RequestContext
+    context: RequestContext,
+    storeId: string
   ): Promise<CartCompletionResponse>
 }
 

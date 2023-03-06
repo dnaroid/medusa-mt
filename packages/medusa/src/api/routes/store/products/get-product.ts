@@ -140,4 +140,8 @@ export class StoreGetProductsProductParams extends PriceSelectionParams {
   @IsString()
   @IsOptional()
   expand?: string
+
+  @IsString()
+  @IsOptional()
+  store_id?: string
 }
