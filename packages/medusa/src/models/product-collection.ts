@@ -8,6 +8,8 @@ import { generateEntityId } from "../utils/generate-entity-id"
 
 @Entity()
 export class ProductCollection extends SoftDeletableEntity {
+  store_id: string
+
   @Column()
   title: string
 
