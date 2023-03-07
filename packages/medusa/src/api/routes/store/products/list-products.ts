@@ -284,6 +284,10 @@ export class StoreGetProductsParams extends StoreGetProductsPaginationParams {
 
   @IsString()
   @IsOptional()
+  store_id?: string
+
+  @IsString()
+  @IsOptional()
   q?: string
 
   @IsArray()

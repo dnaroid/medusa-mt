@@ -172,6 +172,10 @@ export class AdminGetCollectionsParams extends AdminGetCollectionsPaginationPara
   handle?: string
 
   @IsOptional()
+  @IsString()
+  store_id?: string
+
+  @IsOptional()
   @ValidateNested()
   @Type(() => DateComparisonOperator)
   created_at?: DateComparisonOperator
