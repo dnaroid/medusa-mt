@@ -1,6 +1,6 @@
 {
   "name": "@dnaroid/medusa",
-  "version": "1.7.14",
+  "version": "1.7.15",
   "description": "patched version for specific project",
   "main": "dist/index.js",
   "bin": "./cli.js",
