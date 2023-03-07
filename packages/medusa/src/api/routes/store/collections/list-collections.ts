@@ -1,4 +1,4 @@
-import { IsArray, IsInt, IsOptional, ValidateNested } from "class-validator"
+import { IsArray, IsInt, IsOptional, IsString, ValidateNested } from "class-validator";
 
 import { DateComparisonOperator } from "../../../../types/common"
 import ProductCollectionService from "../../../../services/product-collection"
@@ -115,7 +115,7 @@ export class StoreGetCollectionsParams {
   handle?: string[]
 
   @IsOptional()
-  @IsArray()
+  @IsString()
   store_id?: string
 
   @IsOptional()
