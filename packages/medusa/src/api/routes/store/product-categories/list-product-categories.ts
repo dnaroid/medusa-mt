@@ -96,6 +96,10 @@ export class StoreGetProductCategoriesParams extends extendedFindParamsMixin({
 
   @IsString()
   @IsOptional()
+  store_id?: string
+
+  @IsString()
+  @IsOptional()
   @Transform(({ value }) => {
     return value === "null" ? null : value
   })

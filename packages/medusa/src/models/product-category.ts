@@ -21,6 +21,8 @@ export class ProductCategory extends SoftDeletableEntity {
   static productCategoryProductJoinTable = "product_category_product"
   static treeRelations = ["parent_category", "category_children"]
 
+  store_id?: string
+
   @Column()
   name: string
 
