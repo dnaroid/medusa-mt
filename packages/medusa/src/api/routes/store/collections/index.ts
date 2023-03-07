@@ -31,6 +31,7 @@ export const allowedFields = [
   "created_at",
   "updated_at",
   "deleted_at",
+  "store_id",
   ...defaultStoreCollectionRelations,
 ]
 

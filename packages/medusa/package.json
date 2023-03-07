@@ -1,7 +1,7 @@
 {
   "name": "@dnaroid/medusa",
-  "version": "1.7.13",
-  "description": "E-commerce for JAMstack",
+  "version": "1.7.14",
+  "description": "patched version for specific project",
   "main": "dist/index.js",
   "bin": "./cli.js",
   "repository": {
